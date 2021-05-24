@@ -100,4 +100,29 @@ def test_shuffle_after_deal():
 
     unshuffled_deck = deck.deck.copy()
     deck.shuffle()
-    assert(deck.deck != unshuffled_deck)
+    assert(deck.deck != unshuffled_deck) # theoretically this could be the same but odds are a tad low
+
+def test_shuffle_a_lot():
+    """
+    Ensure the shuffle mechanism doesn't break down after a lot of shuffles
+    """
+    deck = DeckOfCards()
+
+    for _ in range(100000):
+        deck.shuffle()
+
+    num_suits = {DIAMOND: 0, HEART: 0, SPADE: 0, CLUB:0}
+    num_face_values = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:0, 12:0, 13:0}
+
+    for _ in range(0, 52):
+        card = deck.deal_one_card()
+        num_suits[card.suit] += 1
+        num_face_values[card.face_value] += 1
+
+    for suit in num_suits:
+        assert(suit in SUITS)   # ensure we didn't get some unexpected non-suit suit
+        assert(num_suits[suit] == CARDS_PER_SUIT)
+    
+    for key, value in num_face_values.items():
+        assert(value == 4)  # ensure 4 of each value
+        assert (key > 0 and key < 14)   # ensure 1-13

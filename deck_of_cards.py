@@ -117,4 +117,11 @@ class Card():
         return f'{FACE_VALUES[self.face_value]} of {self.suit}s'
 
     def __eq__(self, obj):
+        """
+        Parameters:
+        obj (obj): The object to check for equality.
+        
+        Returns:
+        bool: True if a Card object, with matching suit and face value. Otherwise, False. 
+        """
         return isinstance(obj, Card) and obj.face_value == self.face_value and obj.suit == self.suit
