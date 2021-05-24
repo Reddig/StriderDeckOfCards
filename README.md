@@ -34,3 +34,6 @@ card = deck_of_cards.deal_one_card()
 location = 'top' | 'bottom' # add card in at top or bottom of deck
 deck_of_cards.add_card_to_deck(card, location)
 ```
+
+#### Usage
+See examples for a basic blackjack game made using this library.
