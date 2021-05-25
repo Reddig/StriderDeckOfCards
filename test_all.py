@@ -126,3 +126,29 @@ def test_shuffle_a_lot():
     for key, value in num_face_values.items():
         assert(value == 4)  # ensure 4 of each value
         assert (key > 0 and key < 14)   # ensure 1-13
+
+def test_draw_and_shuffle():
+    """
+    Ensure drawing and shuffling causes no errors or lost cards
+    """
+    deck = DeckOfCards()
+    err = None
+
+    for _ in range(deck.deck_size):
+        try:    # shuffle before
+            deck.shuffle()
+        except Exception as e:
+            err = e
+            break
+        try:
+            deck.deal_one_card()
+        except Exception as e:
+            err = e
+            break
+        try:    # shuffle after
+            deck.shuffle()
+        except Exception as e:
+            err = e
+            break
+    assert(deck.deck_size == 0)
+    assert(err == None)
